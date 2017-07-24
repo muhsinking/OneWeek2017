@@ -17,3 +17,5 @@
 /Users/muhsinking/Projects/OneWeek2017/OneWeek2017/obj/x86/Debug/OneWeek2017.exe
 /Users/muhsinking/Projects/OneWeek2017/OneWeek2017/obj/x86/Debug/OneWeek2017.exe.mdb
 /Users/muhsinking/Projects/OneWeek2017/OneWeek2017/bin/Debug/MonoGame.Framework.dll
+/Users/muhsinking/Projects/OneWeek2017/OneWeek2017/bin/Debug/Content/documentation-bg.xnb
+/Users/muhsinking/Projects/OneWeek2017/OneWeek2017/bin/Debug/Content/script-bg.xnb

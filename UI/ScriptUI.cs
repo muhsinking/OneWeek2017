@@ -8,7 +8,7 @@ namespace OneWeek2017
 	public class ScriptUI
 	{
 		Texture2D scriptBG;
-		Vector2 position = new Vector2(0, 400);
+		Vector2 position = new Vector2(0, 0);
 
 		public ScriptUI(ContentManager content)
 		{

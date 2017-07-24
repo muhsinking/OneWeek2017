@@ -34,14 +34,18 @@ namespace OneWeek2017
 			// Create a new SpriteBatch, which can be used to draw textures.
 			spriteBatch = new SpriteBatch(GraphicsDevice);
 
+			levelEngine = new LevelEngine(Content, new Vector2(windowWidth, windowHeight));
+
 			// load test sprite
 			badger = Content.Load<Texture2D>("halberd-badger");
 		}
 
 		protected override void Update(GameTime gameTime)
 		{
-			
+			float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+			levelEngine.Update(elapsedTime);
 			base.Update(gameTime);
+
 		}
 
 		protected override void Draw(GameTime gameTime)
@@ -50,7 +54,9 @@ namespace OneWeek2017
 
 			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, null);
 
-			spriteBatch.Draw(badger, new Vector2(100, 100), Color.White);
+			//spriteBatch.Draw(badger, new Vector2(100, 100), Color.White);
+
+			levelEngine.Draw(spriteBatch);
 
 			spriteBatch.End();
 			base.Draw(gameTime);
