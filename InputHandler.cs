@@ -16,6 +16,7 @@ namespace OneWeek2017
         private static InputHandler _instance;
         private KeyboardState _prevKeyState;
         private Dictionary<char, List<Action<char>>> _keyEvents;
+        private List<Action<char>> _everyKeyEvent; // events that listen on EVERY key
         private GameWindow _window;
 
         public static InputHandler Instance
@@ -33,6 +34,7 @@ namespace OneWeek2017
         private InputHandler()
         {
             _keyEvents = new Dictionary<char, List<Action<char>>>();
+            _everyKeyEvent = new List<Action<char>>;
         }
 
         public void Initialize(GameWindow window)
@@ -61,6 +63,11 @@ namespace OneWeek2017
             }
         }
 
+        public void RegisterEveryKeyEvent(Action<char> keyEvent)
+        {
+            _everyKeyEvent.Add(keyEvent);
+        }
+
         private void TextEntered(object sender, TextInputEventArgs e)
         {
             if (onTextEntered != null)
@@ -82,6 +89,11 @@ namespace OneWeek2017
                     currentEvent.Invoke(charEntered);
                 }
 
+            }
+
+            foreach (Action<char> currentEvent in _everyKeyEvent)
+            {
+                currentEvent.Invoke(charEntered);
             }
         }
 
