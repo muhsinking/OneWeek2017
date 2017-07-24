@@ -11,11 +11,16 @@ namespace OneWeek2017
 		GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
 		Texture2D badger;
+		int windowWidth = 1400;
+		int windowHeight = 800;
 
 		public Game1()
 		{
 			graphics = new GraphicsDeviceManager(this);
 			Content.RootDirectory = "Content";
+			graphics.PreferredBackBufferWidth = windowWidth;  // set this value to the desired width of your window
+			graphics.PreferredBackBufferHeight = windowHeight;   // set this value to the desired height of your window
+			graphics.ApplyChanges();
 		}
 
 		protected override void Initialize()
