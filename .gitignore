@@ -111,3 +111,9 @@ monodroid*.msi
 *.cachefile
 
 *.dll
+!*SDL2.dll
+!*soft_oal.dll
+!*libopenal.1.dylib
+!*libSDL2-2.0.0.dylib
+!*MonoGame.Framework.dll
+!*MonoGame.Framework.dll.config
