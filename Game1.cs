@@ -11,8 +11,8 @@ namespace OneWeek2017
 		GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
 		Texture2D badger;
-		int windowWidth = 1400;
-		int windowHeight = 800;
+		int windowWidth = 1200;
+		int windowHeight = 600;
 		LevelEngine levelEngine;
 
 		public Game1()
