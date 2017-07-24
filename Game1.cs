@@ -13,6 +13,7 @@ namespace OneWeek2017
 	{
 		GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
+		Texture2D badger;
 
 		public Game1()
 		{
@@ -28,8 +29,6 @@ namespace OneWeek2017
 		/// </summary>
 		protected override void Initialize()
 		{
-			// TODO: Add your initialization logic here
-
 			base.Initialize();
 		}
 
@@ -41,8 +40,7 @@ namespace OneWeek2017
 		{
 			// Create a new SpriteBatch, which can be used to draw textures.
 			spriteBatch = new SpriteBatch(GraphicsDevice);
-
-			//TODO: use this.Content to load your game content here 
+			badger = Content.Load<Texture2D>("halberd-badger");
 		}
 
 		/// <summary>
@@ -72,8 +70,9 @@ namespace OneWeek2017
 		{
 			graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
 
-			//TODO: Add your drawing code here
-
+			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, null);
+			spriteBatch.Draw(badger, new Vector2(100, 100), Color.White);
+			spriteBatch.End();
 			base.Draw(gameTime);
 		}
 	}
