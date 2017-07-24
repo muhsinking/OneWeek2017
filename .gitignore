@@ -66,9 +66,6 @@ obj/
 
 Ankh.NoLoad
 
-Content/bin/
-Content/obj/
-
 
 
 #Tooling
@@ -114,6 +111,7 @@ monodroid*.msi
 *.cachefile
 
 *.dll
+*.exe
 !*SDL2.dll
 !*soft_oal.dll
 !*libopenal.1.dylib
