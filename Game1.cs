@@ -45,6 +45,7 @@ namespace OneWeek2017
 			float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 			levelEngine.Update(elapsedTime);
 			base.Update(gameTime);
+            InputHandler.Instance.Update();
 
 		}
 
