@@ -54,6 +54,8 @@ namespace OneWeek2017
 
 			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, null);
 
+			//spriteBatch.Begin();
+
 			//spriteBatch.Draw(badger, new Vector2(100, 100), Color.White);
 
 			levelEngine.Draw(spriteBatch);
