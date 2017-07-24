@@ -24,8 +24,8 @@ namespace OneWeek2017
 
 		public void Draw(SpriteBatch spriteBatch)
 		{
-			docUI.Draw(spriteBatch);
 			scriptUI.Draw(spriteBatch);
+			docUI.Draw(spriteBatch);
 		}
 
 		public void HandleInput()
