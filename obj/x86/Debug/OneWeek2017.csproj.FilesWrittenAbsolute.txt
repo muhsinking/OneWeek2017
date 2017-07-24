@@ -11,9 +11,9 @@
 /Users/muhsinking/Projects/OneWeek2017/OneWeek2017/bin/Debug/MonoGame.Framework.dll.config
 /Users/muhsinking/Projects/OneWeek2017/OneWeek2017/bin/Debug/libopenal.1.dylib
 /Users/muhsinking/Projects/OneWeek2017/OneWeek2017/bin/Debug/libSDL2-2.0.0.dylib
+/Users/muhsinking/Projects/OneWeek2017/OneWeek2017/bin/Debug/Content/halberd-badger.xnb
 /Users/muhsinking/Projects/OneWeek2017/OneWeek2017/bin/Debug/OneWeek2017.exe.mdb
 /Users/muhsinking/Projects/OneWeek2017/OneWeek2017/bin/Debug/OneWeek2017.exe
 /Users/muhsinking/Projects/OneWeek2017/OneWeek2017/obj/x86/Debug/OneWeek2017.exe
 /Users/muhsinking/Projects/OneWeek2017/OneWeek2017/obj/x86/Debug/OneWeek2017.exe.mdb
 /Users/muhsinking/Projects/OneWeek2017/OneWeek2017/bin/Debug/MonoGame.Framework.dll
-/Users/muhsinking/Projects/OneWeek2017/OneWeek2017/bin/Debug/Content/halberd-badger.xnb

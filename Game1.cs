@@ -13,6 +13,7 @@ namespace OneWeek2017
 		Texture2D badger;
 		int windowWidth = 1400;
 		int windowHeight = 800;
+		LevelEngine levelEngine;
 
 		public Game1()
 		{
