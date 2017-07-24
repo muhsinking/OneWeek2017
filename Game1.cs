@@ -27,6 +27,7 @@ namespace OneWeek2017
 		protected override void Initialize()
 		{
 			base.Initialize();
+            InputHandler.Instance.Initialize(Window);
 		}
 
 		protected override void LoadContent()

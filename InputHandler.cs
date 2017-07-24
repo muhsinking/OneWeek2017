@@ -30,6 +30,11 @@ namespace OneWeek2017
             }
         }
 
+        private InputHandler()
+        {
+            _keyEvents = new Dictionary<char, List<Action<char>>>();
+        }
+
         public void Initialize(GameWindow window)
         {
             _window = window;
@@ -68,7 +73,7 @@ namespace OneWeek2017
         {
             char charEntered = e.Character;
 
-            List<Action<char>> events;
+            List<Action<char>> events = new List<Action<char>>() ;
 
             if (_keyEvents.TryGetValue(charEntered, out events))
             {
@@ -84,6 +89,7 @@ namespace OneWeek2017
         {
             KeyboardState keyState = Keyboard.GetState();
 
+            // Some special characters aren't handled well in OpenGL
 #if OpenGL
             if (keyState.IsKeyDown(Keys.Back) && _prevKeyState.IsKeyUp(Keys.Back))
             {
@@ -100,7 +106,6 @@ namespace OneWeek2017
 
             // Handle other special characters here
 #endif
-
             _prevKeyState = keyState;
         }
     }
