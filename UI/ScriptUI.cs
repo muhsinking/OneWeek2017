@@ -36,12 +36,13 @@ namespace OneWeek2017
 			cursorPosition = playerScript.Length;
 		}
 
+		public void HandleInput(char c)
+		{
+			playerScript = playerScript.Insert(cursorPosition, c.ToString());
+		}
+
 		public void Update(float elapsedTime)
 		{
-
-
-
-
 			//KeyboardState kb = Keyboard.GetState();
 
 			//if (kb.IsKeyDown(Keys.W))
