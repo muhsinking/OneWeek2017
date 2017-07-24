@@ -34,7 +34,7 @@ namespace OneWeek2017
         private InputHandler()
         {
             _keyEvents = new Dictionary<char, List<Action<char>>>();
-            _everyKeyEvent = new List<Action<char>>;
+			_everyKeyEvent = new List<Action<char>>();
         }
 
         public void Initialize(GameWindow window)

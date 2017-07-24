@@ -32,13 +32,20 @@ namespace OneWeek2017
 			characterSize = scriptFont.MeasureString("a");
 			lineWidth = 300 - characterSize.X * 4;
 			charactersInLine = (int) (lineWidth/characterSize.X);
-			cursor = new Vector2(0, 0);
 			cursorPosition = playerScript.Length;
+
+			InputHandler.Instance.RegisterEveryKeyEvent(HandleInput);
 		}
 
 		public void HandleInput(char c)
 		{
+			if (char.IsControl(c))
+			{
+				return;
+			}
 			playerScript = playerScript.Insert(cursorPosition, c.ToString());
+			cursorPosition++;
+
 		}
 
 		public void Update(float elapsedTime)
@@ -82,19 +89,24 @@ namespace OneWeek2017
 			//	//lineOffset--;
 			//}
 
-
-
 		}
 
-		public string CreateDrawableString()
+		public string CreateDrawableString(string str)
 		{
-			return "";
+			int newLinePos = charactersInLine;
+			string drawableString = str;
+			while (newLinePos < drawableString.Length)
+			{
+				drawableString = drawableString.Insert(newLinePos, "\n");
+				newLinePos += charactersInLine+1;
+			}
+			return drawableString;
 		}
 
 		public void Draw(SpriteBatch spriteBatch)
 		{
 			spriteBatch.Draw(scriptBG, position, null, Color.White, 0f, new Vector2(0, 0), new Vector2(.75f, .75f), SpriteEffects.None, 0f);
-			spriteBatch.DrawString(scriptFont, playerScript, new Vector2(position.X + (characterSize.X * 2) , position.Y + (characterSize.Y*2) + (lineOffset*characterSize.Y)), Color.White);
+			spriteBatch.DrawString(scriptFont, CreateDrawableString(playerScript), new Vector2(position.X + (characterSize.X * 2) , position.Y + (characterSize.Y*2) + (lineOffset*characterSize.Y)), Color.White);
 		}
 	}
 }
