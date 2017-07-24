@@ -11,8 +11,8 @@ namespace OneWeek2017
 		GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
 		Texture2D badger;
-		int windowWidth = 1400;
-		int windowHeight = 800;
+		int windowWidth = 1200;
+		int windowHeight = 600;
 		LevelEngine levelEngine;
 
 		public Game1()
@@ -54,9 +54,10 @@ namespace OneWeek2017
 		{
 			graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
 
+			// draw without antialiasing
 			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null, null, null);
 
-			//spriteBatch.Draw(badger, new Vector2(100, 100), Color.White);
+			//spriteBatch.Begin();
 
 			levelEngine.Draw(spriteBatch);
 

@@ -12,8 +12,8 @@ namespace OneWeek2017
 
 		public LevelEngine(ContentManager content, Vector2 windowDimensions)
 		{
-			docUI = new DocumentationUI(content);
-			scriptUI = new ScriptUI(content);
+			docUI = new DocumentationUI(content, windowDimensions);
+			scriptUI = new ScriptUI(content, windowDimensions);
 		}
 
 		public void Update(float elapsedTime)
