@@ -25,40 +25,18 @@ namespace OneWeek2017
 			positionOnScreen = new Vector2(0, 0);
 		}
 
-		public void Update(string playerScript)
+		public void Update(string playerScript, int cursorDrawPosition)
 		{
-        	HandleInput(playerScript);
+        	//HandleInput(playerScript);
 
 			Vector2 startingPos = new Vector2(characterSize.X * 2, characterSize.Y * 2);
 			positionOnScreen = startingPos;
-			int charactersInThisLine = 0;
-			int drawablePosition = 0;
 
-			for (int i = 0; i < position; i++)
-			{
-				if (playerScript[i] == '\n')
-				{
-					drawablePosition += charactersInLine - charactersInThisLine;
-					positionOnScreen.Y += characterSize.Y;
-					charactersInThisLine = 0;
-				}
-				else if (charactersInThisLine >= charactersInLine)
-				{
-					charactersInThisLine = 0;
-					drawablePosition++;
-				}
-				else
-				{
-					charactersInThisLine++;
-					drawablePosition++;
-				}
-			}
-
-			//positionOnScreen.X += characterSize.X* charactersInThisLine;
-			positionOnScreen.X = startingPos.X + drawablePosition % charactersInLine * characterSize.X;
-			positionOnScreen.Y = startingPos.Y + drawablePosition / charactersInLine * characterSize.Y;
+			positionOnScreen.X = startingPos.X + cursorDrawPosition % charactersInLine * characterSize.X;
+			positionOnScreen.Y = startingPos.Y + cursorDrawPosition / charactersInLine * characterSize.Y;
 		}
 
+		// TODO: handle this with InputHandler events, rather than monogame kb input
 		public void HandleInput(string playerScript)
 		{
 			KeyboardState kb = Keyboard.GetState();
@@ -67,11 +45,22 @@ namespace OneWeek2017
 			{
 				if (!isArrowKeyDown)
 				{
-					position += charactersInLine;
-					if (position >= playerScript.Length)
+					int i;
+
+					for (i = 0; i < charactersInLine; i++)
 					{
-						position = playerScript.Length;
+						if (position + i < playerScript.Length)
+						{
+							if (playerScript[position + i] == '\n')
+							{
+								i++;
+								break;
+							}
+						}
+						else break;
 					}
+
+					position += i;
 
 					isArrowKeyDown = true;
 				}
@@ -81,11 +70,22 @@ namespace OneWeek2017
 			{
 				if (!isArrowKeyDown)
 				{
-					position -= charactersInLine;
-					if (position< 0)
+					int i;
+
+					for (i = 0; i < charactersInLine; i++)
 					{
-						position = 0;
+						if (position - i - 1 >= 0)
+						{
+							if (playerScript[position - i - 1] == '\n')
+							{
+								i++;
+								break;
+							}
+						}
+						else break;
 					}
+
+					position -= i;
 
 					isArrowKeyDown = true;
 				}

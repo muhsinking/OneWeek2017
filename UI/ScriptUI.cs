@@ -19,7 +19,7 @@ namespace OneWeek2017
 		int charactersInLine;
 		float lineWidth;
 		Cursor cursor;
-		string drawableString;
+		ScriptRenderHelper srh;
 
 		public ScriptUI(ContentManager content, Vector2 windowDimensions)
 		{
@@ -27,13 +27,14 @@ namespace OneWeek2017
 			position = new Vector2(0, 0);
 			scriptBG = content.Load<Texture2D>("script-bg");
 			scriptFont = content.Load<SpriteFont>("script-font");
-			playerScript = "whatever";
-			drawableString = playerScript;
-			characterSize = scriptFont.MeasureString("a");
+			playerScript = "";
+			characterSize = scriptFont.MeasureString("a"); // make sure font is monospaced
 			lineWidth = 300 - characterSize.X * 4;
 			charactersInLine = (int) (lineWidth/characterSize.X);
 			cursor = new Cursor(content, charactersInLine, characterSize);
 			cursor.position = playerScript.Length;
+
+			srh = new ScriptRenderHelper(charactersInLine);
 
 			InputHandler.Instance.RegisterEveryKeyEvent(HandleInput);
 		}
@@ -66,51 +67,42 @@ namespace OneWeek2017
 
 		public void Update(float elapsedTime)
 		{
-			UpdateDrawableString();
-			cursor.Update(playerScript);
+			cursor.HandleInput(playerScript);
+			srh.Update(playerScript, cursor.position);
+			cursor.Update(playerScript, srh.CursorDrawPosition);
 		}
 
-		public void UpdateDrawableString()
-		{
-			//int newLinePos = charactersInLine;
+		//public void UpdateDrawableString()
+		//{
+		//	drawableString = playerScript;
 
-			drawableString = playerScript;
 
-			//while (newLinePos < drawableString.Length)
-			//{
-			//	drawableString = drawableString.Insert(newLinePos, "\n");
-			//	newLinePos += charactersInLine+1;
-			//}
+		//	int charactersInThisLine = 0;
 
-			int charactersInThisLine = 0;
-			int cursorDrawPosition = 0;
+		//	int i = 0;
+		
+		//	while (i < drawableString.Length)
+		//	{
+		//		if (drawableString[i] == '\n')
+		//		{
+		//			charactersInThisLine = -1;
+		//		}
 
-			int i = 0;
-			int newLines = 0;
-
-			while (i < drawableString.Length)
-			{
-				if (drawableString[i] == '\n')
-				{
-					cursorDrawPosition += charactersInLine - charactersInThisLine;
-					charactersInThisLine = 0;
-				}
-
-				else if (i > 0 && charactersInThisLine % charactersInLine == 0)
-				{
-					drawableString = drawableString.Insert(i, "\n");
-					charactersInThisLine = 0;
-					newLines++;
-				}
-				charactersInThisLine++;
-				i++;
-			}
-		}
+		//		else if (i > 0 && charactersInThisLine % charactersInLine == 0)
+		//		{
+		//			drawableString = drawableString.Insert(i, "\n");
+		//			charactersInThisLine = 0;
+		//			i++;
+		//		}
+		//		charactersInThisLine++;
+		//		i++;
+		//	}
+		//}
 
 		public void Draw(SpriteBatch spriteBatch)
 		{
 			spriteBatch.Draw(scriptBG, position, null, Color.White, 0f, new Vector2(0, 0), new Vector2(.75f, .75f), SpriteEffects.None, 0f);
-			spriteBatch.DrawString(scriptFont, drawableString, new Vector2(position.X + (characterSize.X * 2) , position.Y + (characterSize.Y*2) + (lineOffset*characterSize.Y)), Color.White);
+			spriteBatch.DrawString(scriptFont, srh.DrawableString, new Vector2(position.X + (characterSize.X * 2) , position.Y + (characterSize.Y*2) + (lineOffset*characterSize.Y)), Color.White);
 			cursor.Draw(spriteBatch);
 		}
 	}
