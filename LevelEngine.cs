@@ -10,7 +10,10 @@ namespace OneWeek2017
 	{
 		DocumentationUI docUI;
 		ScriptUI scriptUI;
-        
+		Door door1;
+		public int GameState { get; set; }
+		//const int 
+		//const int EDITINGSCRIPT
 
 		public LevelEngine(ContentManager content, Vector2 windowDimensions)
 		{
@@ -21,27 +24,30 @@ namespace OneWeek2017
             //
             InputHandler.Instance.RegisterKeyEvent('\u001b', x => ExecuteCode());
 
+			door1 = new Door(content, "door1");
+
         }
 
 		public void Update(float elapsedTime)
 		{
 			docUI.Update(elapsedTime);
 			scriptUI.Update(elapsedTime);
+			door1.Update();
 		}
 
 		public void Draw(SpriteBatch spriteBatch)
 		{
 			scriptUI.Draw(spriteBatch);
 			docUI.Draw(spriteBatch);
+			door1.Draw(spriteBatch);
 		}
 
 		public void ExecuteCode()
 		{
             // TODO: Need to do level setup elsewhere
             //
-            Door door = new Door("door1");
             List<IScriptableObject> objects = new List<IScriptableObject>();
-            objects.Add(door);
+            objects.Add(door1);
             CompileHelper.ExecuteRoom(objects, scriptUI.PlayerScript);
         }
 
