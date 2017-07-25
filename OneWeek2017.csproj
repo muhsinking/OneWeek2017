@@ -46,6 +46,7 @@
     <Compile Include="LevelEngine.cs" />
     <Compile Include="UI\ScriptUI.cs" />
     <Compile Include="UI\DocumentationUI.cs" />
+    <Compile Include="UI\Cursor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.manifest" />
