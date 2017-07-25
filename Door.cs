@@ -20,8 +20,10 @@ namespace OneWeek2017
 		Texture2D _unlockedTexture;
 		Texture2D _lockedTexture;
 
-		public Boolean IsOpen { get; set; }
-		public Boolean IsLocked { get; set; }
+        public string VariableName { get; set; }
+        public bool IsOpen { get; private set; }
+		public bool IsLocked { get; private set; }
+        bool DirtyTexture { get; set; }
 
         public Door(ContentManager content, string name, float x = 0f, float y = 0f, float scale = 1f, float angle = 0f) : base(null)
         {
@@ -31,15 +33,14 @@ namespace OneWeek2017
 			_unlockedTexture = content.Load<Texture2D>(_unlockedTextureName);
 			_lockedTexture = content.Load<Texture2D>(_lockedTextureName);
 
-            CurrentTexture = _lockedTexture;
-
             // TODO: this shouldn't be hardcoded, should be retrieved from level data
             //
+            CurrentTexture = _lockedTexture;
+            IsLocked = true;
+            IsOpen = false;
             X = 700;
             Y = 300; 
         }
-
-        public string VariableName { get; set; }
 
         public string GetParameterizedName()
         {
@@ -53,7 +54,8 @@ namespace OneWeek2017
 			if (!IsLocked)
 			{
 				IsOpen = true;
-				Console.WriteLine("HOLY SHIT YOU OPENED " + VariableName);
+                DirtyTexture = true;
+                Console.WriteLine("HOLY SHIT YOU OPENED " + VariableName);
 			}
 			else
 			{
@@ -65,18 +67,23 @@ namespace OneWeek2017
 		{
 			Console.WriteLine("HOLY SHIT YOU CLOSED " + VariableName);
 			IsOpen = false;
-		}
+            DirtyTexture = true;
+
+        }
 
 		public void Lock()
 		{
 			Console.WriteLine("HOLY SHIT YOU LOCKED " + VariableName);
 			IsLocked = true;
-		}
+            DirtyTexture = true;
+
+        }
 
 		public void Unlock()
 		{
 			Console.WriteLine("HOLY SHIT YOU UNLOCKED " + VariableName);
-			IsLocked = false;;
+            DirtyTexture = true;
+            IsLocked = false;
 		}
 
 
@@ -84,16 +91,18 @@ namespace OneWeek2017
         //
 		public void Update()
 		{
-
-			if (IsOpen)
-			{
-				CurrentTexture = _openTexture;
-			}
-			else if (IsLocked)
-			{
-                CurrentTexture = _lockedTexture;
-			}
-			else CurrentTexture = _unlockedTexture;
+            if (DirtyTexture)
+            {
+                if (IsOpen)
+                {
+                    CurrentTexture = _openTexture;
+                }
+                else if (IsLocked)
+                {
+                    CurrentTexture = _lockedTexture;
+                }
+                else CurrentTexture = _unlockedTexture;
+            }
 		}
 
     }
