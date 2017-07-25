@@ -41,11 +41,14 @@
     <Compile Include="InputHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Door.cs" />
     <Compile Include="SpriteClass.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="LevelEngine.cs" />
     <Compile Include="UI\ScriptUI.cs" />
     <Compile Include="UI\DocumentationUI.cs" />
+    <Compile Include="CompileHelper.cs" />
+    <Compile Include="IScriptableObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.manifest" />

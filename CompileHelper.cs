@@ -9,12 +9,15 @@ using System.Threading.Tasks;
 
 namespace OneWeek2017
 {
-    public class CompileHelper
+    public static class CompileHelper
     {
-        private const string PREAMBLE = "Class LevelRunner{PublicExecute(";
-        private const string POSTAMBLE = "}}";
 
-        public static CompilerResults CompileCodeFromString(string code, string[] references = null, CompilerParameters CompilerParams = null)
+        // TODO: Config this shit
+        //
+        private static string PREAMBLE = "using OneWeek2017; class LevelRunner{public static void Execute(";
+        private static string POSTAMBLE = "}}";
+
+        private static CompilerResults CompileCodeFromString(string code, string[] references = null, CompilerParameters CompilerParams = null)
         {
             if (CompilerParams == null)
             {
@@ -34,12 +37,18 @@ namespace OneWeek2017
             return provider.CompileAssemblyFromSource(CompilerParams, code);
         }
 
-        /*
-        public bool ExecuteRoom(List<IScriptableObject> toInteractWith, string script)
+        /// <summary>
+        ///  Takes a list of objects in a room and the script to execute on those objects. 
+        ///  TODO: Prevalidate script to prevent malicious users from doing stupid shit
+        /// </summary>
+        /// <param name="toInteractWith">List of objects in the room</param>
+        /// <param name="script">Script to run on those objects</param>
+        /// <returns></returns>
+        public static bool ExecuteRoom(List<IScriptableObject> toInteractWith, string script)
         {
             string generatedClass = GenerateClass(toInteractWith, script);
-
-            CompilerResults compile = CompileHelper.CompileCodeFromString(toCompile);
+            string[] assemblies = { Assembly.GetEntryAssembly().Location };
+            CompilerResults compile = CompileCodeFromString(generatedClass, assemblies);
 
             if (compile.Errors.HasErrors)
             {
@@ -49,9 +58,13 @@ namespace OneWeek2017
                     text += '\n' + error.ToString();
                 }
 
+                Console.WriteLine(text);
+
                 return false;
             }
 
+            // TODO: Hardcoded 0 is bad (we do this because the generated assembly has only 1 module)
+            //
             Module module = compile.CompiledAssembly.GetModules()[0];
             Type typeInfo = null;
             MethodInfo methodInfo = null;
@@ -68,16 +81,17 @@ namespace OneWeek2017
 
             if (methodInfo != null)
             {
-                //OutputField.text = (string)methodInfo.Invoke(null, new object[] { "Here's some stuff!" });
+                // TODO: check the value? Return something?
+                //
+                methodInfo.Invoke(null, toInteractWith.ToArray());
             }
 
             return true;
         }   
-        */
 
-        // TODO: Watchdog the script being written (we're basically asking for malicious injection)
+        // TODO: Watchdog the script being written (we're basically asking for malicious injection or just an infinite loop)
         //
-        private string GenerateClass(List<IScriptableObject> toInteractWith, string script)
+        private static string GenerateClass(List<IScriptableObject> toInteractWith, string script)
         {
             List<string> parameterizedNames = new List<string>();
             foreach(var obj in toInteractWith)
