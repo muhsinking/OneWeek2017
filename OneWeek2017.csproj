@@ -51,7 +51,6 @@
     <Compile Include="IScriptableObject.cs" />
     <Compile Include="UI\Cursor.cs" />
     <Compile Include="UI\ScriptRenderHelper.cs" />
-    <Compile Include="Player.cs" />
     <Compile Include="GameStateManager.cs" />
   </ItemGroup>
   <ItemGroup>
