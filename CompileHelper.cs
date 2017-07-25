@@ -34,8 +34,11 @@ namespace OneWeek2017
             return provider.CompileAssemblyFromSource(CompilerParams, code);
         }
 
-        public void Compile(string toCompile)
+        /*
+        public bool ExecuteRoom(List<IScriptableObject> toInteractWith, string script)
         {
+            string generatedClass = GenerateClass(toInteractWith, script);
+
             CompilerResults compile = CompileHelper.CompileCodeFromString(toCompile);
 
             if (compile.Errors.HasErrors)
@@ -46,7 +49,7 @@ namespace OneWeek2017
                     text += '\n' + error.ToString();
                 }
 
-                return;
+                return false;
             }
 
             Module module = compile.CompiledAssembly.GetModules()[0];
@@ -67,16 +70,13 @@ namespace OneWeek2017
             {
                 //OutputField.text = (string)methodInfo.Invoke(null, new object[] { "Here's some stuff!" });
             }
-        }
-
-        /*
-        public bool ExecuteRoom(List<IScriptableObject> toInteractWith, string script)
-        {
-
 
             return true;
-        }
+        }   
         */
+
+        // TODO: Watchdog the script being written (we're basically asking for malicious injection)
+        //
         private string GenerateClass(List<IScriptableObject> toInteractWith, string script)
         {
             List<string> parameterizedNames = new List<string>();
