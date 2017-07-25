@@ -26,6 +26,7 @@ namespace OneWeek2017
 
 		protected override void Initialize()
 		{
+			IsMouseVisible = true;
 			base.Initialize();
             InputHandler.Instance.Initialize(Window);
 		}

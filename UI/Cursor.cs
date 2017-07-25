@@ -121,7 +121,10 @@ namespace OneWeek2017
 
 		public void Draw(SpriteBatch spriteBatch)
 		{
-			spriteBatch.DrawString(scriptFont, "_", positionOnScreen, Color.White);
+			if (GameStateManager.Instance.CurrentState == GameStateManager.GameState.EditingScript)
+			{
+				spriteBatch.DrawString(scriptFont, "_", positionOnScreen, Color.White);
+			}
 		}
 	}
 }

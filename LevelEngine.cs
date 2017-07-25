@@ -48,6 +48,18 @@ namespace OneWeek2017
 		public void HandleMouseInput()
 		{
 			MouseState mouse = Mouse.GetState();
+
+			// change gamestate based on mouse position
+			if (mouse.LeftButton == ButtonState.Pressed)
+			{
+				if (mouse.X > 300) // TODO width of the script area should not be hard coded
+				{
+					GameStateManager.Instance.CurrentState = GameStateManager.GameState.MovingPlayer;
+				}
+				else GameStateManager.Instance.CurrentState = GameStateManager.GameState.EditingScript;
+			}
+
+
 		}
 
 		public void ExecuteCode()
