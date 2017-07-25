@@ -23,3 +23,4 @@
 /Users/muhsinking/Projects/OneWeek2017/OneWeek2017/bin/Debug/Content/door-locked.xnb
 /Users/muhsinking/Projects/OneWeek2017/OneWeek2017/bin/Debug/Content/door-open.xnb
 /Users/muhsinking/Projects/OneWeek2017/OneWeek2017/bin/Debug/Content/door-unlocked.xnb
+/Users/muhsinking/Projects/OneWeek2017/OneWeek2017/bin/Debug/Content/halberd-badger-nobg.xnb

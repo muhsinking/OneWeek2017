@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework.Input;
 
 namespace OneWeek2017
 {
@@ -12,8 +13,7 @@ namespace OneWeek2017
 		ScriptUI scriptUI;
 		Door door1;
 		public int GameState { get; set; }
-		//const int 
-		//const int EDITINGSCRIPT
+
 
 		public LevelEngine(ContentManager content, Vector2 windowDimensions)
 		{
@@ -30,8 +30,11 @@ namespace OneWeek2017
 
 		public void Update(float elapsedTime)
 		{
+			HandleMouseInput();
 			docUI.Update(elapsedTime);
+
 			scriptUI.Update(elapsedTime);
+
 			door1.Update();
 		}
 
@@ -40,6 +43,11 @@ namespace OneWeek2017
 			scriptUI.Draw(spriteBatch);
 			docUI.Draw(spriteBatch);
 			door1.Draw(spriteBatch);
+		}
+
+		public void HandleMouseInput()
+		{
+			MouseState mouse = Mouse.GetState();
 		}
 
 		public void ExecuteCode()
