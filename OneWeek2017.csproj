@@ -51,6 +51,7 @@
     <Compile Include="IScriptableObject.cs" />
     <Compile Include="UI\Cursor.cs" />
     <Compile Include="UI\ScriptRenderHelper.cs" />
+    <Compile Include="GameStateManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.manifest" />

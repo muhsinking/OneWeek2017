@@ -42,28 +42,30 @@ namespace OneWeek2017
 
 		public void HandleInput(char c)
 		{
-			// if backspace is pressed...
-			if (c == '\b' && cursor.position > 0)
+			if (GameStateManager.Instance.CurrentState == GameStateManager.GameState.EditingScript)
 			{
-				PlayerScript = PlayerScript.Remove(cursor.position-1,1);
-				cursor.position--;
+				// if backspace is pressed...
+				if (c == '\b' && cursor.position > 0)
+				{
+					PlayerScript = PlayerScript.Remove(cursor.position - 1, 1);
+					cursor.position--;
+				}
+
+				// if enter is pressed...
+				if (c == '\r' || c == '\n')
+				{
+					PlayerScript = PlayerScript.Insert(cursor.position, "\n");
+
+					cursor.position += 1;
+				}
+
+				if (char.IsControl(c))
+				{
+					return;
+				}
+				PlayerScript = PlayerScript.Insert(cursor.position, c.ToString());
+				cursor.position++;
 			}
-
-			// if enter is pressed...
-			if (c == '\r' || c == '\n')
-			{
-				PlayerScript = PlayerScript.Insert(cursor.position, "\n");
-
-				cursor.position += 1;
-			}
-
-			if (char.IsControl(c))
-			{
-				return;
-			}
-			PlayerScript = PlayerScript.Insert(cursor.position, c.ToString());
-			cursor.position++;
-
 		}
 
 		public void Update(float elapsedTime)
