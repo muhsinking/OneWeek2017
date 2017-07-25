@@ -27,7 +27,7 @@ namespace OneWeek2017
 
 		public void Update(string playerScript, int cursorDrawPosition)
 		{
-        	//HandleInput(playerScript);
+        	HandleInput(playerScript);
 
 			Vector2 startingPos = new Vector2(characterSize.X * 2, characterSize.Y * 2);
 			positionOnScreen = startingPos;
@@ -116,7 +116,6 @@ namespace OneWeek2017
 			}
 
 			else isArrowKeyDown = false;
-
 
 		}
 

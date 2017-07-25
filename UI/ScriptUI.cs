@@ -67,37 +67,9 @@ namespace OneWeek2017
 
 		public void Update(float elapsedTime)
 		{
-			cursor.HandleInput(playerScript);
 			srh.Update(playerScript, cursor.position);
 			cursor.Update(playerScript, srh.CursorDrawPosition);
 		}
-
-		//public void UpdateDrawableString()
-		//{
-		//	drawableString = playerScript;
-
-
-		//	int charactersInThisLine = 0;
-
-		//	int i = 0;
-		
-		//	while (i < drawableString.Length)
-		//	{
-		//		if (drawableString[i] == '\n')
-		//		{
-		//			charactersInThisLine = -1;
-		//		}
-
-		//		else if (i > 0 && charactersInThisLine % charactersInLine == 0)
-		//		{
-		//			drawableString = drawableString.Insert(i, "\n");
-		//			charactersInThisLine = 0;
-		//			i++;
-		//		}
-		//		charactersInThisLine++;
-		//		i++;
-		//	}
-		//}
 
 		public void Draw(SpriteBatch spriteBatch)
 		{

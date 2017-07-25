@@ -24,7 +24,6 @@ namespace OneWeek2017
 			int charactersInThisLine = 0;
 
 			int offset = 0;
-			//int tempCursorDraw = 0
 			CursorDrawPosition = 0;
 
 			for (int i = 0; i < playerScript.Length; i++)
@@ -53,10 +52,7 @@ namespace OneWeek2017
 					charactersInThisLine++;
 					if(i < cursorPosition) CursorDrawPosition++;
 				}
-
 			}
 		}
-
-
 	}
 }
