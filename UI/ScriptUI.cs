@@ -10,11 +10,12 @@ namespace OneWeek2017
 {
 	public class ScriptUI
 	{
-		Texture2D scriptBG;
+        public string PlayerScript { get; private set; }
+
+        Texture2D scriptBG;
 		Vector2 position;
 		Vector2 characterSize;
 		SpriteFont scriptFont;
-		string playerScript;
 		int lineOffset;
 		int charactersInLine;
 		float lineWidth;
@@ -27,12 +28,12 @@ namespace OneWeek2017
 			position = new Vector2(0, 0);
 			scriptBG = content.Load<Texture2D>("script-bg");
 			scriptFont = content.Load<SpriteFont>("script-font");
-			playerScript = "";
+			PlayerScript = "";
 			characterSize = scriptFont.MeasureString("a"); // make sure font is monospaced
 			lineWidth = 300 - characterSize.X * 4;
 			charactersInLine = (int) (lineWidth/characterSize.X);
 			cursor = new Cursor(content, charactersInLine, characterSize);
-			cursor.position = playerScript.Length;
+			cursor.position = PlayerScript.Length;
 
 			srh = new ScriptRenderHelper(charactersInLine);
 
@@ -44,14 +45,14 @@ namespace OneWeek2017
 			// if backspace is pressed...
 			if (c == '\b' && cursor.position > 0)
 			{
-				playerScript = playerScript.Remove(cursor.position-1,1);
+				PlayerScript = PlayerScript.Remove(cursor.position-1,1);
 				cursor.position--;
 			}
 
 			// if enter is pressed...
 			if (c == '\r' || c == '\n')
 			{
-				playerScript = playerScript.Insert(cursor.position, "\n");
+				PlayerScript = PlayerScript.Insert(cursor.position, "\n");
 
 				cursor.position += 1;
 			}
@@ -60,15 +61,15 @@ namespace OneWeek2017
 			{
 				return;
 			}
-			playerScript = playerScript.Insert(cursor.position, c.ToString());
+			PlayerScript = PlayerScript.Insert(cursor.position, c.ToString());
 			cursor.position++;
 
 		}
 
 		public void Update(float elapsedTime)
 		{
-			srh.Update(playerScript, cursor.position);
-			cursor.Update(playerScript, srh.CursorDrawPosition);
+			srh.Update(PlayerScript, cursor.position);
+			cursor.Update(PlayerScript, srh.CursorDrawPosition);
 		}
 
 		public void Draw(SpriteBatch spriteBatch)

@@ -10,18 +10,18 @@ namespace OneWeek2017
 	{
 		DocumentationUI docUI;
 		ScriptUI scriptUI;
-        Door door;
+        
 
 		public LevelEngine(ContentManager content, Vector2 windowDimensions)
 		{
 			docUI = new DocumentationUI(content, windowDimensions);
 			scriptUI = new ScriptUI(content, windowDimensions);
+            
+            // TODO: Hardcoded to listen on ESC key. Should be on a button or something
+            //
+            InputHandler.Instance.RegisterKeyEvent('\u001b', x => ExecuteCode());
 
-            door = new Door("door1");
-            List<IScriptableObject> objects = new List<IScriptableObject>();
-            objects.Add(door);
-            InputHandler.Instance.RegisterKeyEvent('\u000D', x => CompileHelper.ExecuteRoom(objects, "door1.Open();"));
-		}
+        }
 
 		public void Update(float elapsedTime)
 		{
@@ -35,10 +35,15 @@ namespace OneWeek2017
 			docUI.Draw(spriteBatch);
 		}
 
-		public void HandleInput()
+		public void ExecuteCode()
 		{
-			
-		}
+            // TODO: Need to do level setup elsewhere
+            //
+            Door door = new Door("door1");
+            List<IScriptableObject> objects = new List<IScriptableObject>();
+            objects.Add(door);
+            CompileHelper.ExecuteRoom(objects, scriptUI.PlayerScript);
+        }
 
 		public void HandleCollision()
 		{
