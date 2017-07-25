@@ -29,7 +29,7 @@ namespace OneWeek2017
 			scriptFont = content.Load<SpriteFont>("script-font");
 			playerScript = "";
 			characterSize = scriptFont.MeasureString("a"); // make sure font is monospaced
-			lineWidth = 300 - characterSize.X * 4;
+			lineWidth = 300 - characterSize.X * 6;
 			charactersInLine = (int) (lineWidth/characterSize.X);
 			cursor = new Cursor(content, charactersInLine, characterSize);
 			cursor.position = playerScript.Length;
@@ -74,7 +74,7 @@ namespace OneWeek2017
 		public void Draw(SpriteBatch spriteBatch)
 		{
 			spriteBatch.Draw(scriptBG, position, null, Color.White, 0f, new Vector2(0, 0), new Vector2(.75f, .75f), SpriteEffects.None, 0f);
-			spriteBatch.DrawString(scriptFont, srh.DrawableString, new Vector2(position.X + (characterSize.X * 2) , position.Y + (characterSize.Y*2) + (lineOffset*characterSize.Y)), Color.White);
+			spriteBatch.DrawString(scriptFont, srh.DrawableString, new Vector2(position.X + (characterSize.X * 3) , position.Y + (characterSize.Y*2) + (lineOffset*characterSize.Y)), Color.White);
 			cursor.Draw(spriteBatch);
 		}
 	}

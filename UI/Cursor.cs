@@ -29,7 +29,7 @@ namespace OneWeek2017
 		{
         	HandleInput(playerScript);
 
-			Vector2 startingPos = new Vector2(characterSize.X * 2, characterSize.Y * 2);
+			Vector2 startingPos = new Vector2(characterSize.X * 3, characterSize.Y * 2 + 3);
 			positionOnScreen = startingPos;
 
 			positionOnScreen.X = startingPos.X + cursorDrawPosition % charactersInLine * characterSize.X;
