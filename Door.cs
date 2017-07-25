@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace OneWeek2017
 {
 	// Create superclass that handles multiple sprite states and animation sheets
-	public class Door : IScriptableObject
+	public class Door : SpriteBase, IScriptableObject
     {
 		string _openTextureName = "door-open";
 		string _unlockedTextureName = "door-unlocked";
@@ -19,23 +19,24 @@ namespace OneWeek2017
 		Texture2D _openTexture;
 		Texture2D _unlockedTexture;
 		Texture2D _lockedTexture;
-		Texture2D _currentTexture;
 
 		public Boolean IsOpen { get; set; }
 		public Boolean IsLocked { get; set; }
 
-		Vector2 positionOnscreen;
-
-        public Door(ContentManager content, string name)
+        public Door(ContentManager content, string name, float x = 0f, float y = 0f, float scale = 1f, float angle = 0f) : base(null)
         {
             VariableName = name;
 
 			_openTexture = content.Load<Texture2D>(_openTextureName);
 			_unlockedTexture = content.Load<Texture2D>(_unlockedTextureName);
 			_lockedTexture = content.Load<Texture2D>(_lockedTextureName);
-			_currentTexture = _lockedTexture;
 
-			positionOnscreen = new Vector2(700,300); //TODO this shouldn't be hardcoded, should be retrieved from level data
+            CurrentTexture = _lockedTexture;
+
+            // TODO: this shouldn't be hardcoded, should be retrieved from level data
+            //
+            X = 700;
+            Y = 300; 
         }
 
         public string VariableName { get; set; }
@@ -78,22 +79,22 @@ namespace OneWeek2017
 			IsLocked = false;;
 		}
 
+
+        // TODO: Possibly move to open / close unlock methods (this is running every frame)
+        //
 		public void Update()
 		{
+
 			if (IsOpen)
 			{
-				_currentTexture = _openTexture;
+				CurrentTexture = _openTexture;
 			}
 			else if (IsLocked)
 			{
-				_currentTexture = _lockedTexture;
+                CurrentTexture = _lockedTexture;
 			}
-			else _currentTexture = _unlockedTexture;
+			else CurrentTexture = _unlockedTexture;
 		}
 
-		public void Draw(SpriteBatch spriteBatch)
-		{
-			spriteBatch.Draw(_currentTexture, positionOnscreen, null, Color.White, 0f, new Vector2(0, 0), new Vector2(2f, 2f), SpriteEffects.None, 0f);
-		}
     }
 }
