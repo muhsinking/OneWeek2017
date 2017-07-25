@@ -49,6 +49,8 @@
     <Compile Include="UI\DocumentationUI.cs" />
     <Compile Include="CompileHelper.cs" />
     <Compile Include="IScriptableObject.cs" />
+    <Compile Include="UI\Cursor.cs" />
+    <Compile Include="UI\ScriptRenderHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.manifest" />

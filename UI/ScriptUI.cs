@@ -12,88 +12,70 @@ namespace OneWeek2017
 	{
 		Texture2D scriptBG;
 		Vector2 position;
-		SpriteFont scriptFont;
-		String playerScript;
-		int lineOffset;
-		float lineHeight;
-		float lineWidth;
-		int charactersInLine;
 		Vector2 characterSize;
-		int cursorPosition;
-		Vector2 cursor;
-
+		SpriteFont scriptFont;
+		string playerScript;
+		int lineOffset;
+		int charactersInLine;
+		float lineWidth;
+		Cursor cursor;
+		ScriptRenderHelper srh;
 
 		public ScriptUI(ContentManager content, Vector2 windowDimensions)
 		{
 			lineOffset = 0;
+			position = new Vector2(0, 0);
 			scriptBG = content.Load<Texture2D>("script-bg");
 			scriptFont = content.Load<SpriteFont>("script-font");
-			playerScript = "whatever";
-			characterSize = scriptFont.MeasureString("a");
+			playerScript = "";
+			characterSize = scriptFont.MeasureString("a"); // make sure font is monospaced
 			lineWidth = 300 - characterSize.X * 4;
 			charactersInLine = (int) (lineWidth/characterSize.X);
-			cursor = new Vector2(0, 0);
-			cursorPosition = playerScript.Length;
+			cursor = new Cursor(content, charactersInLine, characterSize);
+			cursor.position = playerScript.Length;
+
+			srh = new ScriptRenderHelper(charactersInLine);
+
+			InputHandler.Instance.RegisterEveryKeyEvent(HandleInput);
+		}
+
+		public void HandleInput(char c)
+		{
+			// if backspace is pressed...
+			if (c == '\b' && cursor.position > 0)
+			{
+				playerScript = playerScript.Remove(cursor.position-1,1);
+				cursor.position--;
+			}
+
+			// if enter is pressed...
+			if (c == '\r' || c == '\n')
+			{
+				playerScript = playerScript.Insert(cursor.position, "\n");
+
+				cursor.position += 1;
+			}
+
+			if (char.IsControl(c))
+			{
+				return;
+			}
+			playerScript = playerScript.Insert(cursor.position, c.ToString());
+			cursor.position++;
+
 		}
 
 		public void Update(float elapsedTime)
 		{
-
-
-
-
-			//KeyboardState kb = Keyboard.GetState();
-
-			//if (kb.IsKeyDown(Keys.W))
-			//{
-			//	Vector2 scriptSize = scriptFont.MeasureString(playerScript+"w\n");
-
-			//	if (scriptSize.X > lineWidth)
-			//	{
-			//		playerScript = playerScript.Insert(cursorPosition,"\n  ");
-			//		cursorPosition += 3;
-			//	}
-
-			//	playerScript = playerScript.Insert(cursorPosition,"w");
-
-			//	cursorPosition++;
-
-			//}
-			//if (kb.IsKeyDown(Keys.Enter))
-			//{
-			//	playerScript = playerScript.Insert(cursorPosition,"\n  ");
-			//}
-
-			//if (kb.IsKeyDown(Keys.Down))
-			//{
-			//	cursorPosition += charactersInLine;
-			//	if (cursorPosition >= playerScript.Length)
-			//	{
-			//		cursorPosition = playerScript.Length - 1;
-			//	}
-			//	//lineOffset++;
-			//}
-
-			//if (kb.IsKeyDown(Keys.Up))
-			//{
-			//	cursorPosition -= charactersInLine;
-			//	if (cursorPosition < 0) cursorPosition = 0;
-			//	//lineOffset--;
-			//}
-
-
-
-		}
-
-		public string CreateDrawableString()
-		{
-			return "";
+			srh.Update(playerScript, cursor.position);
+			cursor.Update(playerScript, srh.CursorDrawPosition);
 		}
 
 		public void Draw(SpriteBatch spriteBatch)
 		{
 			spriteBatch.Draw(scriptBG, position, null, Color.White, 0f, new Vector2(0, 0), new Vector2(.75f, .75f), SpriteEffects.None, 0f);
-			spriteBatch.DrawString(scriptFont, playerScript, new Vector2(position.X + (characterSize.X * 2) , position.Y + (characterSize.Y*2) + (lineOffset*characterSize.Y)), Color.White);
+			spriteBatch.DrawString(scriptFont, srh.DrawableString, new Vector2(position.X + (characterSize.X * 2) , position.Y + (characterSize.Y*2) + (lineOffset*characterSize.Y)), Color.White);
+			cursor.Draw(spriteBatch);
 		}
 	}
 }
