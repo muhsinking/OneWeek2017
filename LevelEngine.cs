@@ -60,9 +60,12 @@ namespace OneWeek2017
 					GameStateManager.Instance.CurrentState = GameStateManager.GameState.MovingPlayer;
 				}
 				else GameStateManager.Instance.CurrentState = GameStateManager.GameState.EditingScript;
+
+				if (door1.PointCollision(new Vector2(mouse.X, mouse.Y)))
+				{
+					door1.Open();
+				}
 			}
-
-
 		}
 
 		public void ExecuteCode()

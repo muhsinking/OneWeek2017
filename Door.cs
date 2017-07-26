@@ -25,7 +25,7 @@ namespace OneWeek2017
 		public bool IsLocked { get; private set; }
         bool DirtyTexture { get; set; }
 
-        public Door(ContentManager content, string name, float x = 0f, float y = 0f, float scale = 1f, float angle = 0f) : base(null)
+        public Door(ContentManager content, string name, float x = 0f, float y = 0f, float scale = 2f, float Angle = 0f) : base(null)
         {
             VariableName = name;
 
@@ -39,9 +39,9 @@ namespace OneWeek2017
             IsLocked = true;
             IsOpen = false;
             X = 700;
-            Y = 300; 
-        }
-
+            Y = 300;
+			Scale = 2f;
+		}
         public string GetParameterizedName()
         {
             return "Door " + VariableName;
