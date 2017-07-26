@@ -25,12 +25,5 @@ namespace OneWeek2017
 				return instance;
 			}
 		}
-
-		//public int GetState()
-		//{
-		//	return GameState;
-		//}
-
-
 	}
 }
