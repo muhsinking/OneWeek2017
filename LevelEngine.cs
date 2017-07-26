@@ -13,6 +13,7 @@ namespace OneWeek2017
 		ScriptUI scriptUI;
 		Door door1;
 		Player player;
+		string _docUIString;
 
 		public int GameState { get; set; }
 
@@ -21,7 +22,9 @@ namespace OneWeek2017
 		{
 			docUI = new DocumentationUI(content, windowDimensions);
 			scriptUI = new ScriptUI(content, windowDimensions);
-            
+
+			_docUIString = "";
+
             // TODO: Hardcoded to listen on ESC key. Should be on a button or something
             //
             InputHandler.Instance.RegisterKeyEvent('\u001b', x => ExecuteCode());
@@ -33,9 +36,9 @@ namespace OneWeek2017
 		public void Update(float elapsedTime)
 		{
 			HandleMouseInput();
-			docUI.Update(elapsedTime);
 			scriptUI.Update(elapsedTime);
 			door1.Update();
+			docUI.Update(_docUIString);
 			player.HandleInput();
 			player.Update(elapsedTime);
 		}
@@ -52,9 +55,9 @@ namespace OneWeek2017
 		{
 			MouseState mouse = Mouse.GetState();
 
-			// change gamestate based on mouse position
 			if (mouse.LeftButton == ButtonState.Pressed)
 			{
+				// change gamestate based on mouse position
 				if (mouse.X > 300) // TODO width of the script area should not be hard coded
 				{
 					GameStateManager.Instance.CurrentState = GameStateManager.GameState.MovingPlayer;
@@ -63,7 +66,11 @@ namespace OneWeek2017
 
 				if (door1.PointCollision(new Vector2(mouse.X, mouse.Y)))
 				{
-					door1.Open();
+					_docUIString = door1.Documentation;
+				}
+				else if(player.PointCollision(new Vector2(mouse.X, mouse.Y)))
+				{
+					_docUIString = player.Documentation;
 				}
 			}
 		}
