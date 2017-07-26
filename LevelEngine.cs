@@ -12,6 +12,8 @@ namespace OneWeek2017
 		DocumentationUI docUI;
 		ScriptUI scriptUI;
 		Door door1;
+		Player player;
+
 		public int GameState { get; set; }
 
 
@@ -25,17 +27,17 @@ namespace OneWeek2017
             InputHandler.Instance.RegisterKeyEvent('\u001b', x => ExecuteCode());
 
 			door1 = new Door(content, "door1");
-
+			player = new Player(content, 500, 300, 2);
         }
 
 		public void Update(float elapsedTime)
 		{
 			HandleMouseInput();
 			docUI.Update(elapsedTime);
-
 			scriptUI.Update(elapsedTime);
-
 			door1.Update();
+			player.HandleInput();
+			player.Update(elapsedTime);
 		}
 
 		public void Draw(SpriteBatch spriteBatch)
@@ -43,6 +45,7 @@ namespace OneWeek2017
 			scriptUI.Draw(spriteBatch);
 			docUI.Draw(spriteBatch);
 			door1.Draw(spriteBatch);
+			player.Draw(spriteBatch);
 		}
 
 		public void HandleMouseInput()
