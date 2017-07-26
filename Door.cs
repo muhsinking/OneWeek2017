@@ -20,14 +20,26 @@ namespace OneWeek2017
 		Texture2D _unlockedTexture;
 		Texture2D _lockedTexture;
 
-        public string VariableName { get; set; }
+        public string VariableName { get; private set; }
+		public string Documentation { get; private set; }
         public bool IsOpen { get; private set; }
 		public bool IsLocked { get; private set; }
+
         bool DirtyTexture { get; set; }
 
-        public Door(ContentManager content, string name, float x = 0f, float y = 0f, float scale = 1f, float angle = 0f) : base(null)
+        public Door(ContentManager content, string name, float x = 0f, float y = 0f, float scale = 2f, float Angle = 0f) : base(null)
         {
             VariableName = name;
+
+			Documentation = 
+				"Door " + name + "\n\n" +
+				"Methods\n" +
+				"  Open() - opens the door if unlocked\n" +
+				"  Unlock() - unlocks the door\n" +
+				"  Lock() - locks the door\n\n" +
+				"Properties\n" +
+				"  Boolean IsOpen\n" +
+				"  Boolean IsLocked";
 
 			_openTexture = content.Load<Texture2D>(_openTextureName);
 			_unlockedTexture = content.Load<Texture2D>(_unlockedTextureName);
@@ -39,9 +51,9 @@ namespace OneWeek2017
             IsLocked = true;
             IsOpen = false;
             X = 700;
-            Y = 300; 
-        }
-
+            Y = 300;
+			Scale = 2f;
+		}
         public string GetParameterizedName()
         {
             return "Door " + VariableName;

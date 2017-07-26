@@ -68,5 +68,27 @@ namespace OneWeek2017
 				otherSprite.Y + otherSprite.CurrentTexture.Height * otherSprite.Scale * otherSprite.HitboxScale / 2) return false;
 			return true;
 		}
+
+
+		public Boolean PointCollision(Vector2 point)
+		{
+			// if point < right edge
+			if (this.X + this.CurrentTexture.Width* this.Scale * this.HitboxScale / 2 <
+			    point.X) return false;
+
+			// if point < bottom edge
+			if (this.Y + this.CurrentTexture.Height * this.Scale * this.HitboxScale / 2 <
+				point.Y) return false;
+			
+			// if point > left edge
+			if (this.X - this.CurrentTexture.Width * this.Scale * this.HitboxScale / 2 >
+				point.X) return false;
+
+			// if point > top edge
+			if (this.Y - this.CurrentTexture.Height * this.Scale * this.HitboxScale / 2 >
+			    point.Y) return false;
+			
+			return true;
+		}
 	}
 }
